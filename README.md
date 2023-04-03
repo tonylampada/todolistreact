@@ -2,7 +2,7 @@
 
 I'm using this project to learn React and Firebase.
 So far I got a TODO app running at https://mytodolistreact.tonylampada.com.br/
-
+Documenting lessons learned and thoughts here: [README-lessonslearned.md](README-lessonslearned.md)
 
 # Getting Started with Create React App
 
