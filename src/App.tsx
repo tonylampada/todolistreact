@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from "react";
 import './App.css';
+import { db } from "./firebase";
+import Input from "./Input";
+import TodoList from "./TodoList";
+import { Todo } from "./types";
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    const unsubscribe = db.collection("todos").onSnapshot((snapshot) => {
+      const newTodos: Todo[] = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        text: doc.data().text,
+      }));
+      setTodos(newTodos);
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>My Todo App</h1>
+      <Input />
+      <TodoList todos={todos} />
     </div>
   );
-}
+};
 
 export default App;
