@@ -1,32 +1,30 @@
-import React, { useState, useEffect } from "react";
 import './App.css';
-import { db } from "./firebase";
-import Input from "./Input";
 import TodoList from "./TodoList";
-import { Todo } from "./types";
+import TodoList2 from "./TodoList2";
+import Home from './Home';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
-const App = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    const unsubscribe = db.collection("todos").onSnapshot((snapshot) => {
-      const newTodos: Todo[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        text: doc.data().text,
-      }));
-      setTodos(newTodos);
-    });
-
-    return unsubscribe;
-  }, []);
-
+function App() {
   return (
-    <div>
-      <h1>My Todo App</h1>
-      <Input />
-      <TodoList todos={todos} />
-    </div>
+    <BrowserRouter>
+      <div>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/todo-list">Todo List</Link></li>
+            <li><Link to="/todo-list2">Todo List 2</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" Component={Home} />
+          <Route path="/todo-list" Component={TodoList} />
+          <Route path="/todo-list2" Component={TodoList2} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
+
 };
 
 export default App;

@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { db } from "./firebase";
 import { Todo } from "./types";
 
-function Input() {
+type Props = {
+    onAddTodo: (text: string) => void;
+};
+
+function Input2({ onAddTodo }: Props) {
   const [text, setText] = useState("");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (text.trim()) {
-      const newTodo: Todo = {
-        id: Date.now().toString(),
-        text: text.trim(),
-      };
-      db.collection("todos").doc(newTodo.id).set(newTodo);
+      onAddTodo(text)
       setText("");
     }
   };
@@ -30,4 +29,4 @@ function Input() {
   );
 };
 
-export default Input;
+export default Input2;
