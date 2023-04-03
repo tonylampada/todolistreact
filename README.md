@@ -1,3 +1,9 @@
+# Toy project - todo list using React and firebase 
+
+I'm using this project to learn React and Firebase.
+So far I got a TODO app running at https://mytodolistreact.tonylampada.com.br/
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
