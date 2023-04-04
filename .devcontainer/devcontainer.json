@@ -1,0 +1,7 @@
+{
+    "name": "todolistreact devcontainer",
+    "dockerComposeFile": "../docker/docker-compose.yaml",
+    "service": "todolistreact",
+    "workspaceFolder": "/home/developer/todolistreact",
+    "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+}

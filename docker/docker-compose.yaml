@@ -1,0 +1,16 @@
+version: '3'
+services:
+  todolistreact:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        UID: $MYUID
+    image: todolistreact
+    volumes:
+      - todolistreact_devhome:/home/developer
+      - ..:/home/developer/todolistreact
+      - ~/.ssh:/home/developer/.ssh
+    command: sleep infinity
+volumes:
+  todolistreact_devhome:
