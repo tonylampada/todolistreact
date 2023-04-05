@@ -5,6 +5,16 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/api/pubMessage",
+        "function": "pubMessage"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   },
   "functions": [
