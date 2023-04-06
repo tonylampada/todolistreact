@@ -1,10 +1,10 @@
 import './App.css';
-import TodoList from "./TodoList";
-import TodoList2 from "./TodoList2";
-import StoragePoc from "./StoragePoc";
-import ImageDisplay from "./ImageDisplay";
-import PubSubPoc from './PubSubPoc';
-import Home from './Home';
+import TodoList from "./pages/TodoList";
+import TodoList2 from "./pages/TodoList2";
+import StoragePoc from "./pages/StoragePoc";
+import ImageDisplay from "./pages/ImageDisplay";
+import PubSubPoc from './pages/PubSubPoc';
+import Home from './pages/Home';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 function App() {

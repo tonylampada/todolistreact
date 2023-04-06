@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase";
-import { Todo } from "./types";
-import Input2 from "./Input2";
+import { db } from "../firebase";
+import { Todo } from "../types";
+import Input2 from "../components/Input2";
 
 function TodoList2() {
   const [todos, setTodos] = useState<Todo[]>([]);
