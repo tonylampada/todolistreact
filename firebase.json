@@ -12,6 +12,10 @@
         "function": "pubMessage"
       },
       {
+        "source": "/api/longSave",
+        "function": "longSave"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

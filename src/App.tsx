@@ -4,6 +4,7 @@ import TodoList2 from "./pages/TodoList2";
 import StoragePoc from "./pages/StoragePoc";
 import ImageDisplay from "./pages/ImageDisplay";
 import PubSubPoc from './pages/PubSubPoc';
+import TransactionPoc from './pages/TransactionPoc';
 import Home from './pages/Home';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
             <li><Link to="/storage-poc">Storage POC (save files to firebase storage)</Link></li>
             <li><Link to="/image-display">Image Display (display images from firebase storage)</Link></li>
             <li><Link to="/pubsub-poc">Pub-Sub POC</Link></li>
+            <li><Link to="/txn-poc">Transaction POC</Link></li>
           </ul>
         </nav>
 
@@ -30,6 +32,7 @@ function App() {
           <Route path="/storage-poc" Component={StoragePoc} />
           <Route path="/image-display" Component={ImageDisplay} />
           <Route path="/pubsub-poc" Component={PubSubPoc} />
+          <Route path="/txn-poc" Component={TransactionPoc} />
         </Routes>
       </div>
     </BrowserRouter>
