@@ -24,4 +24,6 @@ firebase-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ui-debug.log*
+database-debug.log*
+firestore-debug.log*
 .env
