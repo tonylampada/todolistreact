@@ -1,8 +1,7 @@
 
 function force_serial(asyncf) {
-
-//states
-// - idle
+    //states
+    // - idle
     // running 1
     // running 1 with another in queue
 
@@ -20,13 +19,16 @@ function force_serial(asyncf) {
         return promise
     }
 
-    function run(promise, args){
-        asyncf(...args).then(result => {
+    async function run(promise, args){
+        try {
+            const result = await asyncf(...args)
             promise.resolve(result)
             return result
-        }).catch(err => {
+        } catch (err) {
             promise.reject(err)
-        })
+        } finally {
+            removeCall(promise, args)
+        }
     }
 
     function addCall(promise, args){
@@ -59,15 +61,15 @@ function force_serial(asyncf) {
         }
     }
 
-    function wrapped(...args){
+    async function wrapped(...args){
         let promise = makePromise()
         addCall(promise, args)
-        promise.then(result => {
-            removeCall(promise, args)
+        try {
+            const result = await promise
             return result
-        }).catch(e => {
-            // throw e
-        })
+        } catch (err) {
+            throw err
+        }
         return promise
     }
     return wrapped

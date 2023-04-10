@@ -1,36 +1,53 @@
-import React, { useState } from "react";
-import api from "../api/api.js"
+import React, { useState, useEffect } from "react";
+import api from "../api/apimock.js"
+import { Todo } from "../types";
+
 
 function TransactionPoc() {
 
   let x = 0
 
-  async function save1(){
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const newTodos = await api.listAllTodos()
+      setTodos(newTodos);
+    };
+    fetchData();
+  }, []);
+
+
+  async function save1(todoId:string){
     const _x = x++
     try{
       console.log(`save1... ${_x}`)
-      const response = await api.save1(x)
+      const response = await api.save1(todoId, _x)
       console.log(`save1 ok ${_x}`)
     } catch (e) {
       console.log(`save1 fail ${_x}`)
     }
   }
 
-  async function save2(){
+  async function save2(todoId:string){
     const _x = x++
     try{
       console.log(`save2... ${_x}`)
-      const response = await api.save2(x)
+      const response = await api.save2(todoId, _x)
       console.log(`save2 ok ${_x}`)
     } catch (e) {
-      console.log(`save2 fail ${_x}`)
+      console.log(`save2 fail ${_x} ${e}`)
     }
   }
 
   return (
     <div>
-      <button onClick={save1}>save1</button>
-      <button onClick={save2}>save2</button>
+    {todos.map((todo) => (
+      <div key={todo.id} className="todo-item">
+        <button onClick={() => save1(todo.id)}>save1 {todo.id}</button>
+        <button onClick={() => save2(todo.id)}>save2 {todo.id}</button>
+      </div>
+    ))}
     </div>
   );
 }
