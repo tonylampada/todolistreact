@@ -53,11 +53,16 @@ exports.longSave = functions.https.onRequest(async (request, response) => {
     }, ms));
   }
 
-  const x = request.body.x;
-  const lockRef = db.collection("todos").doc("1680486886477");
-  await db.runTransaction(async (transaction) => {
-    await timeout(3000);
-    await transaction.update(lockRef, {x: x});
-  });
+  if (request.method == "POST") {
+    const x = request.body.x;
+    console.error(`method ${request.method}`)
+    const lockRef = db.collection("todos").doc("1681089180036");
+    await db.runTransaction(async (transaction) => {
+      await timeout(3000);
+      await transaction.update(lockRef, {x: x});
+    });
+  }
+
+  // response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   response.send("ok");
 });
