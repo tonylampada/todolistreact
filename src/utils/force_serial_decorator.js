@@ -1,4 +1,11 @@
 
+function NeverCalledError (message) {
+    this.message = message
+}
+
+NeverCalledError.prototype = new Error();
+
+
 function force_serial(asyncf) {
     //states
     // - idle
@@ -42,7 +49,7 @@ function force_serial(asyncf) {
         } else if (nextCall == null) { // 1 to 2
             nextCall = {promise, args}
         } else { // 2 to 10
-            nextCall.promise.reject(`no need to call this anymore ${nextCall.args}`)
+            nextCall.promise.reject(new NeverCalledError(`no need to call this anymore ${nextCall.args}`))
             nextCall = {promise, args}
         }
     }
@@ -75,4 +82,4 @@ function force_serial(asyncf) {
     return wrapped
 }
 
-export default force_serial;
+export {force_serial, NeverCalledError}

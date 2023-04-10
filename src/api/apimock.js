@@ -1,4 +1,4 @@
-import force_serial from "../utils/force_serial_decorator";
+import {force_serial} from "../utils/force_serial_decorator";
 
 async function timeout(ms) {
     return new Promise((resolve) => setTimeout(() => {
