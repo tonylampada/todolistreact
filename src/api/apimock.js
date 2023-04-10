@@ -14,7 +14,7 @@ const api = {
     },
     async save1(id, x) {
         console.log(`SAVING ${id} ${x}`)
-        await timeout(3000)
+        await timeout(5000)
         if (Math.random() < .5) {
             throw "backend error"
         }
