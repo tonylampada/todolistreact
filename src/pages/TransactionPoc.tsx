@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import api from "../api/apimock.js"
+import api from "../api/api.js"
 import { Todo } from "../types";
 import {NeverCalledError} from "../utils/force_serial_decorator";
-
-
 
 function TransactionPoc() {
 
@@ -25,7 +23,7 @@ function TransactionPoc() {
     try{
       console.log(`save1... ${_x}`)
       const response = await api.save1(todoId, _x)
-      console.log(`save1 ok ${_x}`)
+      console.log(`save1 ok ${_x} ${response}`)
     } catch (e) {
       console.log(`save1 fail ${_x}`)
     }
@@ -36,7 +34,7 @@ function TransactionPoc() {
     try{
       console.log(`save2... ${_x}`)
       const response = await api.save2(todoId, _x)
-      console.log(`save2 ok ${_x}`)
+      console.log(`save2 ok ${_x} ${response}`)
     } catch (e) {
       if (e instanceof NeverCalledError) {
         console.log(`save2 never called ${_x} ${e}`)
