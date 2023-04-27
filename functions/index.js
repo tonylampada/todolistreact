@@ -2,6 +2,11 @@ const functions = require("firebase-functions");
 const firebase = require("firebase");
 require("firebase/firestore");
 
+exports.helloWorld = functions.https.onRequest(helloWorld);
+exports.pubMessage = functions.https.onRequest(pubMessage);
+exports.helloPubSub = functions.pubsub.topic("todolistreact-topic").onPublish(helloPubSub);
+exports.longSave = functions.https.onRequest(longSave);
+
 const firebaseConfig = {
   // apiKey: "xxx",
   authDomain: "my-todo-list-80d81.firebaseapp.com",
@@ -15,12 +20,43 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
+async function timeout(ms) {
+  return new Promise((resolve) => setTimeout(() => {
+    resolve();
+  }, ms));
+}
 
-exports.pubMessage = functions.https.onRequest(async (request, response) => {
+async function helloWorld(request, response) {
+  functions.logger.info(`Good
+                         log 1`, {structuredData: true});
+  console.log(`Bad
+               log 1`, {structuredData: true});
+  await timeout(1000);
+  functions.logger.info(`Good
+                         log 2`, {structuredData: true});
+  console.log(`Bad
+               log 2`, {structuredData: true});
+  if (request.path.endsWith("bug1")) {
+    throw new Error("error 1");
+  }
+  timeout(1000).then(() => {
+    functions.logger.info(`Good
+                           log 3`, {structuredData: true});
+    console.log(`Bad
+                 log 3`, {structuredData: true});
+    if (request.path.endsWith("bug2") || request.path.endsWith("bug3")) {
+      throw new Error("error 2");
+    }
+  });
+
+  if (request.path.endsWith("bug3")) {
+    throw new Error("error 3");
+  }
+
+  response.send("Hello from Firebase!");
+}
+
+async function pubMessage(request, response) {
   const {PubSub} = require("@google-cloud/pubsub");
   const pubSubClient = new PubSub();
   const topicName = "todolistreact-topic";
@@ -35,24 +71,18 @@ exports.pubMessage = functions.https.onRequest(async (request, response) => {
   }
   functions.logger.info(msg, {structuredData: true});
   response.send(msg);
-});
+}
 
-exports.helloPubSub = functions.pubsub.topic("todolistreact-topic").onPublish((message) => {
+function helloPubSub(message) {
   try {
     const msg = message.json.msg;
     functions.logger.info(`got message from pubsub! - ${msg}`, {structuredData: true});
   } catch (e) {
     functions.logger.error("PubSub message was not JSON", e);
   }
-});
+}
 
-exports.longSave = functions.https.onRequest(async (request, response) => {
-  async function timeout(ms) {
-    return new Promise((resolve) => setTimeout(() => {
-      resolve();
-    }, ms));
-  }
-
+async function longSave(request, response) {
   if (request.method === "POST") {
     const x = request.body.x;
     const id = request.body.id;
@@ -69,4 +99,5 @@ exports.longSave = functions.https.onRequest(async (request, response) => {
 
   // response.header('Access-Control-Allow-Origin', 'h
   response.send("ok");
-});
+}
+
