@@ -17,7 +17,7 @@ function ImageDisplay() {
     <div>
       <button onClick={loadImage}>Click to load Image and behold the world-famous picture of pudim.com.br</button>
       <br />
-      <img src={imageUrl} alt="My Image" />
+      <img src={imageUrl} alt="A delicious pudding."/>
     </div>
   );
 }

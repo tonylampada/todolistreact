@@ -1,8 +1,10 @@
 const functions = require("firebase-functions");
+const functions2 = require("firebase-functions/v2");
 const firebase = require("firebase");
 require("firebase/firestore");
 
 exports.helloWorld = functions.https.onRequest(helloWorld);
+exports.helloworldtwo = functions2.https.onRequest(helloWorld);
 exports.pubMessage = functions.https.onRequest(pubMessage);
 exports.helloPubSub = functions.pubsub.topic("todolistreact-topic").onPublish(helloPubSub);
 exports.longSave = functions.https.onRequest(longSave);
@@ -15,6 +17,8 @@ const firebaseConfig = {
   storageBucket: "my-todo-list-80d81.appspot.com",
   appId: "1:784252133684:web:fd2b01906afce5591f0561",
 };
+
+console.log = functions2.logger.info;
 
 firebase.initializeApp(firebaseConfig);
 

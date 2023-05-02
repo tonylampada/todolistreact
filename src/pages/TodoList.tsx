@@ -3,9 +3,9 @@ import { db } from "../firebase";
 import { Todo } from "../types";
 import Input from "../components/Input";
 
-type Props = {
-  todos: Todo[];
-};
+// type Props = {
+//   todos: Todo[];
+// };
 
 function TodoList () {
 

@@ -16,8 +16,12 @@
         "function": "longSave"
       },
       {
-        "source": "/api/hello/**",
+        "source": "/api/hellov/**",
         "function": "helloWorld"
+      },
+      {
+        "source": "/api/hellov2/**",
+        "function": "helloworldtwo"
       },
       {
         "source": "**",
