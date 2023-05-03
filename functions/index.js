@@ -57,7 +57,7 @@ async function helloWorld(request, response) {
     throw new Error("error 3");
   }
 
-  response.send("Hello from Firebase!");
+  response.send("Hello from Firebase 2!");
 }
 
 async function pubMessage(request, response) {
