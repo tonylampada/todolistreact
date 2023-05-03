@@ -18,6 +18,6 @@ jobs:
       - name: npm ci
         run: npm ci && cd functions && npm ci
       - name: Create SA key
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MY_TODO_LIST_80D81 }}' > $HOME/gcloud.json
+        run: echo '${{ secrets.FIREBASE_FUNCTIONS_SERVICE_ACCOUNT }}' > $HOME/gcloud.json
       - name: Deploy Cloud Functions
         run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && pwd && npx firebase-tools deploy --only functions --json
