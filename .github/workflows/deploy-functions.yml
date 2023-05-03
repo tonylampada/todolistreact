@@ -1,11 +1,12 @@
 
 name: Deploy Functions
-on: workflow_dispatch
-  inputs:
-    deploy_only:
-      description: 'firebase deploy --only what?'
-      required: true
-      default: 'functions'
+on: 
+  workflow_dispatch:
+    inputs:
+      deploy_only:
+        description: 'firebase deploy --only what?'
+        required: true
+        default: 'functions'
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -25,4 +26,4 @@ jobs:
       - name: Create SA key
         run: echo '${{ secrets.FIREBASE_FUNCTIONS_SERVICE_ACCOUNT }}' > $HOME/gcloud.json
       - name: Deploy Cloud Functions
-        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && npx firebase-tools deploy --only functions
+        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && npx firebase-tools deploy --only ${{ github.event.inputs.deploy_only }}
